@@ -10,6 +10,7 @@ import {
   Briefcase,
   Settings, 
   Dumbbell,
+  Sparkles,
   Menu,
   X
 } from 'lucide-react';
@@ -43,6 +44,7 @@ const Sidebar = ({ currentView, onNavigate }) => {
     { id: 'transfer-market', label: 'Transfer Market', icon: <DollarSign className="w-5 h-5" />, path: '/transfer-market' },
     { id: 'training', label: 'Training', icon: <Dumbbell className="w-5 h-5" />, path: '/training' },
     { id: 'simulation', label: 'Simulation', icon: <Calendar className="w-5 h-5" />, path: '/simulation' },
+    { id: 'ai-assistant', label: 'AI Assistant', icon: <Sparkles className="w-5 h-5" />, path: '/ai-assistant' },
     { id: 'awards-statistics', label: 'Awards & Stats', icon: <Trophy className="w-5 h-5" />, path: '/awards-statistics' },
     { id: 'settings', label: 'Settings', icon: <Settings className="w-5 h-5" />, path: '/settings' }
   ];
