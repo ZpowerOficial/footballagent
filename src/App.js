@@ -15,6 +15,7 @@ import SimulationScreen from './components/SimulationScreen';
 import NegotiationSystem from './components/NegotiationSystem';
 import TrainingDevelopment from './components/TrainingDevelopment';
 import SettingsSystem from './components/SettingsSystem';
+import AIAssistant from './components/AIAssistant';
 
 // Navigation and layout components
 import Navbar from './components/common/Navbar';
@@ -79,13 +80,17 @@ function MainApp() {
               path="/negotiation/:playerId/:clubId" 
               element={<NegotiationSystem />} 
             />
-            <Route 
-              path="/training" 
-              element={<TrainingDevelopment />} 
+            <Route
+              path="/training"
+              element={<TrainingDevelopment />}
             />
-            <Route 
-              path="/settings" 
-              element={<SettingsSystem />} 
+            <Route
+              path="/ai-assistant"
+              element={<AIAssistant />}
+            />
+            <Route
+              path="/settings"
+              element={<SettingsSystem />}
             />
           </Routes>
         </main>

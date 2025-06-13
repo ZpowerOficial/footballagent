@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { ArrowUp, ArrowDown, TrendingUp, DollarSign, Activity, Calendar, Target, Award, UserPlus, RefreshCw } from 'lucide-react';
+import { ArrowUp, ArrowDown, TrendingUp, DollarSign, Activity, Calendar, Target, Award, UserPlus, RefreshCw, Sparkles } from 'lucide-react';
 
 const PlayerManagement = () => {
   const [selectedPlayer, setSelectedPlayer] = useState(null);
   const [viewMode, setViewMode] = useState('list'); // 'list' or 'details'
+  const [aiReport, setAiReport] = useState('');
+  const [aiLoading, setAiLoading] = useState(false);
 
   // Example player data (in a real app, this would come from game state)
   const players = [
@@ -126,6 +128,25 @@ const PlayerManagement = () => {
     if (overall >= 75) return 'bg-green-500 text-white';
     if (overall >= 65) return 'bg-yellow-500 text-white';
     return 'bg-red-500 text-white';
+  };
+
+  const generateAiReport = async () => {
+    if (!selectedPlayer) return;
+    if (!window.puter || !window.puter.ai) {
+      setAiReport('Puter AI service not available.');
+      return;
+    }
+    setAiLoading(true);
+    try {
+      const prompt = `Provide a short scouting report for ${selectedPlayer.name}, a ${selectedPlayer.age}-year-old ${selectedPlayer.position} from ${selectedPlayer.nationality}.`;
+      const res = await window.puter.ai.chat(prompt);
+      setAiReport(typeof res === 'string' ? res : JSON.stringify(res));
+    } catch (err) {
+      console.error(err);
+      setAiReport('Error fetching report.');
+    } finally {
+      setAiLoading(false);
+    }
   };
 
   return (
@@ -386,6 +407,19 @@ const PlayerManagement = () => {
                         <Calendar className="w-4 h-4" />
                         <span>Schedule Meeting</span>
                       </button>
+                      <button
+                        className="w-full mb-2 flex items-center justify-center space-x-2 bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded"
+                        onClick={generateAiReport}
+                      >
+                        <Sparkles className="w-4 h-4" />
+                        <span>AI Scout Report</span>
+                      </button>
+                      {aiLoading && <div className="text-sm text-gray-500">Generating report...</div>}
+                      {aiReport && (
+                        <div className="mt-2 p-2 border rounded bg-gray-50 whitespace-pre-wrap text-sm">
+                          {aiReport}
+                        </div>
+                      )}
                     </div>
                   </div>
                   
